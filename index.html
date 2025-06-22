@@ -1,0 +1,1185 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>أكاديمية مآب لتحفيظ القرآن الكريم</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@300;400;600;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Cairo', sans-serif;
+            background: linear-gradient(135deg, #0f4c75 0%, #3282b8 50%, #bbe1fa 100%);
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+        
+        .islamic-pattern {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .logo {
+            font-family: 'Amiri', serif;
+            font-size: 3rem;
+            color: #ffffff;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+        
+        @keyframes glow {
+            from { text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3), 0 0 20px rgba(255, 255, 255, 0.3); }
+            to { text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3), 0 0 30px rgba(255, 255, 255, 0.5); }
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            color: #ffffff;
+            margin-bottom: 20px;
+            opacity: 0.9;
+        }
+        
+        .bismillah {
+            font-family: 'Amiri', serif;
+            font-size: 1.5rem;
+            color: #ffd700;
+            margin-bottom: 20px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+        }
+        
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            align-items: start;
+        }
+        
+        .packages-section {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .section-title {
+            font-family: 'Amiri', serif;
+            font-size: 2rem;
+            color: #0f4c75;
+            text-align: center;
+            margin-bottom: 25px;
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, #ffd700, #ff6b6b);
+            border-radius: 2px;
+        }
+        
+        .packages-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        
+        .package-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .package-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+        
+        .package-card:hover::before {
+            left: 100%;
+        }
+        
+        .package-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            border-color: #ffd700;
+        }
+        
+        .package-card.selected {
+            border-color: #ffd700;
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+        }
+        
+        .package-card h3 {
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+        }
+        
+        .package-card p {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+        
+        .form-section {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #0f4c75;
+            font-size: 1rem;
+        }
+        
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.9);
+        }
+        
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #3282b8;
+            box-shadow: 0 0 0 3px rgba(50, 130, 184, 0.1);
+            transform: scale(1.02);
+        }
+        
+        .checkbox-group {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 10px;
+            margin-top: 10px;
+        }
+        
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            background: rgba(15, 76, 117, 0.1);
+            padding: 10px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .checkbox-item:hover {
+            background: rgba(15, 76, 117, 0.2);
+        }
+        
+        .checkbox-item input[type="checkbox"] {
+            width: auto;
+            margin-left: 8px;
+            accent-color: #3282b8;
+        }
+        
+        .submit-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px 40px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .submit-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+        
+        .submit-btn:hover::before {
+            left: 100%;
+        }
+        
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+        
+        .floating-elements {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        .floating-element {
+            position: absolute;
+            color: rgba(255, 255, 255, 0.1);
+            font-size: 2rem;
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+        
+        .features-highlight {
+            background: rgba(255, 215, 0, 0.1);
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        
+        .features-highlight h4 {
+            color: #0f4c75;
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+        }
+        
+        .features-list {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+        
+        .feature-item {
+            display: flex;
+            align-items: center;
+            color: #0f4c75;
+            font-size: 0.9rem;
+        }
+        
+        .feature-item::before {
+            content: '✓';
+            color: #4caf50;
+            font-weight: bold;
+            margin-left: 8px;
+        }
+        
+        @media (max-width: 768px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .logo {
+                font-size: 2rem;
+            }
+            
+            .packages-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .features-list {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .age-groups {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .age-group {
+            background: linear-gradient(135deg, #ff6b6b, #ee5a52);
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+        
+        .age-group:hover,
+        .age-group.selected {
+            border-color: #ffd700;
+            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.3);
+        }
+        
+        .subjects-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .subject-card {
+            background: linear-gradient(135deg, #ffd700, #ffb347);
+            color: #0f4c75;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            font-weight: 600;
+        }
+        
+        .subject-card:hover,
+        .subject-card.selected {
+            border-color: #0f4c75;
+            box-shadow: 0 5px 15px rgba(255, 215, 0, 0.3);
+            transform: translateY(-2px);
+        }
+        
+        .emailjs-instructions {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            padding: 15px;
+            margin-top: 20px;
+            border: 1px dashed #ffd700;
+        }
+        
+        .emailjs-instructions h4 {
+            color: #ffd700;
+            margin-bottom: 10px;
+        }
+        
+        .emailjs-instructions ol {
+            padding-right: 20px;
+        }
+        
+        .emailjs-instructions li {
+            margin-bottom: 8px;
+        }
+        
+        .emailjs-instructions code {
+            background: rgba(0, 0, 0, 0.2);
+            padding: 2px 5px;
+            border-radius: 4px;
+        }
+    </style>
+    <!-- EmailJS SDK -->
+    <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+    <script>
+        // Initialize EmailJS with your User ID
+        (function() {
+            emailjs.init("YOUR_USER_ID"); // استبدل هذا بـ ID المستخدم الخاص بك من EmailJS
+        })();
+    </script>
+</head>
+<body>
+    <div class="islamic-pattern"></div>
+    <div class="floating-elements">
+        <div class="floating-element" style="top: 10%; right: 10%; animation-delay: 0s;">☪</div>
+        <div class="floating-element" style="top: 20%; left: 15%; animation-delay: 1s;">✦</div>
+        <div class="floating-element" style="top: 70%; right: 20%; animation-delay: 2s;">❋</div>
+        <div class="floating-element" style="top: 80%; left: 10%; animation-delay: 3s;">⟡</div>
+    </div>
+    
+    <div class="container">
+        <header>
+            <div class="bismillah">بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ</div>
+            <h1 class="logo">🕌 أكاديمية مآب لتحفيظ القرآن الكريم</h1>
+            <p class="subtitle">تعلم القرآن الكريم بأحدث الطرق التفاعلية مع نخبة من المعلمين المتخصصين</p>
+        </header>
+        
+        <div class="main-content">
+            <div class="packages-section">
+                <h2 class="section-title">🎓 اختر الباقة المناسبة</h2>
+                
+                <div class="packages-grid">
+                    <div class="package-card" data-package="bronze">
+                        <h3>📚 الباقة البرونزية</h3>
+                        <p>مناسبة للمبتدئين<br>حصتان أسبوعياً</p>
+                    </div>
+                    <div class="package-card" data-package="silver">
+                        <h3>🥈 الباقة الفضية</h3>
+                        <p>للمستوى المتوسط<br>3 حصص أسبوعياً</p>
+                    </div>
+                    <div class="package-card" data-package="gold">
+                        <h3>🥇 الباقة الذهبية</h3>
+                        <p>للمتقدمين<br>5 حصص أسبوعياً</p>
+                    </div>
+                    <div class="package-card" data-package="platinum">
+                        <h3>💎 الباقة البلاتينية</h3>
+                        <p>التحفيظ المكثف<br>يومياً</p>
+                    </div>
+                    <div class="package-card" data-package="diamond">
+                        <h3>💍 الباقة الماسية</h3>
+                        <p>برنامج شامل متكامل<br>مع التجويد والتفسير</p>
+                    </div>
+                </div>
+                
+                <h3 style="color: #0f4c75; margin-bottom: 15px;">🎯 الفئات العمرية</h3>
+                <div class="age-groups">
+                    <div class="age-group" data-age="children">
+                        <h4>أطفال</h4>
+                        <p>4-12 سنة</p>
+                    </div>
+                    <div class="age-group" data-age="youth">
+                        <h4>شباب</h4>
+                        <p>13-25 سنة</p>
+                    </div>
+                    <div class="age-group" data-age="adults">
+                        <h4>بالغين</h4>
+                        <p>26+ سنة</p>
+                    </div>
+                </div>
+                
+                <h3 style="color: #0f4c75; margin-bottom: 15px;">📖 المواد الدراسية</h3>
+                <div class="subjects-grid">
+                    <div class="subject-card" data-subject="quran">
+                        <h4>القرآن الكريم</h4>
+                    </div>
+                    <div class="subject-card" data-subject="tajweed">
+                        <h4>التجويد</h4>
+                    </div>
+                    <div class="subject-card" data-subject="tafseer">
+                        <h4>التفسير</h4>
+                    </div>
+                    <div class="subject-card" data-subject="arabic">
+                        <h4>اللغة العربية</h4>
+                    </div>
+                    <div class="subject-card" data-subject="islam">
+                        <h4>أساسيات الدين</h4>
+                    </div>
+                    <div class="subject-card" data-subject="french">
+                        <h4>فرنسية</h4>
+                    </div>
+                </div>
+                
+                <div class="features-highlight">
+                    <h4>🌟 مميزات الأكاديمية</h4>
+                    <div class="features-list">
+                        <div class="feature-item">أول حصة مجانية</div>
+                        <div class="feature-item">حلقات فردية ومشتركة</div>
+                        <div class="feature-item">تدريس بطرق تفاعلية</div>
+                        <div class="feature-item">معلمين متخصصين</div>
+                        <div class="feature-item">مواعيد مرنة</div>
+                        <div class="feature-item">متابعة الأهل للأطفال</div>
+                        <div class="feature-item">حفظ منهجي منظم</div>
+                        <div class="feature-item">إجازات معتمدة</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="form-section">
+                <h2 class="section-title">📝 نموذج التسجيل</h2>
+                
+                <form id="registrationForm">
+                    <div class="form-group">
+                        <label for="fullName">👤 الاسم الكامل *</label>
+                        <input type="text" id="fullName" name="fullName" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">📧 البريد الإلكتروني *</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="phone">📱 رقم الهاتف *</label>
+                        <input type="tel" id="phone" name="phone" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="age">🎂 العمر *</label>
+                        <select id="age" name="age" required>
+                            <option value="">اختر العمر</option>
+                            <option value="4-6">4-6 سنوات</option>
+                            <option value="7-9">7-9 سنوات</option>
+                            <option value="10-12">10-12 سنة</option>
+                            <option value="13-16">13-16 سنة</option>
+                            <option value="17-25">17-25 سنة</option>
+                            <option value="26-35">26-35 سنة</option>
+                            <option value="36-50">36-50 سنة</option>
+                            <option value="50+">أكثر من 50 سنة</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="gender">👥 الجنس *</label>
+                        <select id="gender" name="gender" required>
+                            <option value="">اختر الجنس</option>
+                            <option value="male">ذكر</option>
+                            <option value="female">أنثى</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="currentLevel">📊 مستوى الحفظ الحالي *</label>
+                        <select id="currentLevel" name="currentLevel" required>
+                            <option value="">اختر المستوى</option>
+                            <option value="beginner">مبتدئ (لا يحفظ شيئاً)</option>
+                            <option value="basic">أساسي (بعض السور القصيرة)</option>
+                            <option value="intermediate">متوسط (جزء واحد أو أكثر)</option>
+                            <option value="advanced">متقدم (عدة أجزاء)</option>
+                            <option value="expert">خبير (حافظ للقرآن كاملاً)</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="sessionsPerWeek">📅 عدد الحصص المطلوبة أسبوعياً *</label>
+                        <select id="sessionsPerWeek" name="sessionsPerWeek" required>
+                            <option value="">اختر عدد الحصص</option>
+                            <option value="1">حصة واحدة</option>
+                            <option value="2">حصتان</option>
+                            <option value="3">3 حصص</option>
+                            <option value="4">4 حصص</option>
+                            <option value="5">5 حصص</option>
+                            <option value="6">6 حصص</option>
+                            <option value="7">يومياً (7 حصص)</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>🕐 الأوقات المناسبة *</label>
+                        <div class="checkbox-group">
+                            <div class="checkbox-item">
+                                <label>الفجر (5-7 ص)</label>
+                                <input type="checkbox" name="timeSlots" value="dawn">
+                            </div>
+                            <div class="checkbox-item">
+                                <label>الصباح (8-12 ظ)</label>
+                                <input type="checkbox" name="timeSlots" value="morning">
+                            </div>
+                            <div class="checkbox-item">
+                                <label>الظهر (12-3 ع)</label>
+                                <input type="checkbox" name="timeSlots" value="noon">
+                            </div>
+                            <div class="checkbox-item">
+                                <label>العصر (3-6 م)</label>
+                                <input type="checkbox" name="timeSlots" value="afternoon">
+                            </div>
+                            <div class="checkbox-item">
+                                <label>المغرب (6-8 م)</label>
+                                <input type="checkbox" name="timeSlots" value="evening">
+                            </div>
+                            <div class="checkbox-item">
+                                <label>العشاء (8-11 م)</label>
+                                <input type="checkbox" name="timeSlots" value="night">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="preferredDays">📆 الأيام المفضلة *</label>
+                        <div class="checkbox-group">
+                            <div class="checkbox-item">
+                                <label>السبت</label>
+                                <input type="checkbox" name="preferredDays" value="saturday">
+                            </div>
+                            <div class="checkbox-item">
+                                <label>الأحد</label>
+                                <input type="checkbox" name="preferredDays" value="sunday">
+                            </div>
+                            <div class="checkbox-item">
+                                <label>الاثنين</label>
+                                <input type="checkbox" name="preferredDays" value="monday">
+                            </div>
+                            <div class="checkbox-item">
+                                <label>الثلاثاء</label>
+                                <input type="checkbox" name="preferredDays" value="tuesday">
+                            </div>
+                            <div class="checkbox-item">
+                                <label>الأربعاء</label>
+                                <input type="checkbox" name="preferredDays" value="wednesday">
+                            </div>
+                            <div class="checkbox-item">
+                                <label>الخميس</label>
+                                <input type="checkbox" name="preferredDays" value="thursday">
+                            </div>
+                            <div class="checkbox-item">
+                                <label>الجمعة</label>
+                                <input type="checkbox" name="preferredDays" value="friday">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="specialNeeds">🎯 احتياجات خاصة أو ملاحظات</label>
+                        <textarea id="specialNeeds" name="specialNeeds" rows="4" placeholder="اكتب أي احتياجات خاصة أو ملاحظات تريد إضافتها..."></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="country">🌍 الدولة *</label>
+                        <select id="country" name="country" required>
+                            <option value="">اختر الدولة</option>
+                            <option value="egypt">مصر</option>
+                            <option value="saudi">السعودية</option>
+                            <option value="uae">الإمارات</option>
+                            <option value="jordan">الأردن</option>
+                            <option value="lebanon">لبنان</option>
+                            <option value="syria">سوريا</option>
+                            <option value="iraq">العراق</option>
+                            <option value="kuwait">الكويت</option>
+                            <option value="qatar">قطر</option>
+                            <option value="bahrain">البحرين</option>
+                            <option value="oman">عُمان</option>
+                            <option value="yemen">اليمن</option>
+                            <option value="morocco">المغرب</option>
+                            <option value="algeria">الجزائر</option>
+                            <option value="tunisia">تونس</option>
+                            <option value="libya">ليبيا</option>
+                            <option value="sudan">السودان</option>
+                            <option value="palestine">فلسطين</option>
+                            <option value="other">أخرى</option>
+                        </select>
+                    </div>
+                    
+                    <button type="submit" class="submit-btn">
+                        🚀 ابدأ رحلتك القرآنية معنا
+                    </button>
+                </form>
+
+    
+    <script>
+        // Interactive package selection
+        document.querySelectorAll('.package-card').forEach(card => {
+            card.addEventListener('click', function() {
+                document.querySelectorAll('.package-card').forEach(c => c.classList.remove('selected'));
+                this.classList.add('selected');
+                
+                // Auto-adjust sessions based on package
+                const sessionsSelect = document.getElementById('sessionsPerWeek');
+                const package = this.dataset.package;
+                
+                switch(package) {
+                    case 'bronze':
+                        sessionsSelect.value = '2';
+                        break;
+                    case 'silver':
+                        sessionsSelect.value = '3';
+                        break;
+                    case 'gold':
+                        sessionsSelect.value = '5';
+                        break;
+                    case 'platinum':
+                        sessionsSelect.value = '7';
+                        break;
+                    case 'diamond':
+                        sessionsSelect.value = '5';
+                        break;
+                }
+            });
+        });
+        
+        // Interactive age group selection
+        document.querySelectorAll('.age-group').forEach(group => {
+            group.addEventListener('click', function() {
+                document.querySelectorAll('.age-group').forEach(g => g.classList.remove('selected'));
+                this.classList.add('selected');
+                
+                // Auto-adjust age dropdown based on age group
+                const ageSelect = document.getElementById('age');
+                const ageGroup = this.dataset.age;
+                
+                switch(ageGroup) {
+                    case 'children':
+                        ageSelect.value = '7-9';
+                        break;
+                    case 'youth':
+                        ageSelect.value = '17-25';
+                        break;
+                    case 'adults':
+                        ageSelect.value = '26-35';
+                        break;
+                }
+            });
+        });
+        
+        // Interactive subject selection
+        document.querySelectorAll('.subject-card').forEach(card => {
+            card.addEventListener('click', function() {
+                this.classList.toggle('selected');
+            });
+        });
+        
+        // Form submission with EmailJS
+        document.getElementById('registrationForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Show loading state
+            const submitBtn = document.querySelector('.submit-btn');
+            const originalText = submitBtn.textContent;
+            submitBtn.textContent = '⏳ جاري الإرسال...';
+            submitBtn.disabled = true;
+            
+            // Collect form data
+            const formData = new FormData(this);
+            const data = {};
+            
+            // Regular form fields
+            for (let [key, value] of formData.entries()) {
+                if (data[key]) {
+                    if (Array.isArray(data[key])) {
+                        data[key].push(value);
+                    } else {
+                        data[key] = [data[key], value];
+                    }
+                } else {
+                    data[key] = value;
+                }
+            }
+            
+            // Selected package
+            const selectedPackage = document.querySelector('.package-card.selected');
+            if (selectedPackage) {
+                data.selectedPackage = selectedPackage.dataset.package;
+                data.packageName = selectedPackage.querySelector('h3').textContent;
+            }
+            
+            // Selected age group
+            const selectedAgeGroup = document.querySelector('.age-group.selected');
+            if (selectedAgeGroup) {
+                data.ageGroup = selectedAgeGroup.dataset.age;
+            }
+            
+            // Selected subjects
+            const selectedSubjects = document.querySelectorAll('.subject-card.selected');
+            data.subjects = Array.from(selectedSubjects).map(card => {
+                const subjectNames = {
+                    'quran': 'القرآن الكريم',
+                    'tajweed': 'التجويد',
+                    'tafseer': 'التفسير',
+                    'arabic': 'اللغة العربية',
+                    'islam': 'أساسيات الدين',
+                    'french': 'الفرنسية'
+                };
+                return subjectNames[card.dataset.subject] || card.dataset.subject;
+            });
+            
+            // Collect time slots
+            const timeSlots = [];
+            document.querySelectorAll('input[name="timeSlots"]:checked').forEach(checkbox => {
+                const timeNames = {
+                    'dawn': 'الفجر (5-7 ص)',
+                    'morning': 'الصباح (8-12 ظ)',
+                    'noon': 'الظهر (12-3 ع)',
+                    'afternoon': 'العصر (3-6 م)',
+                    'evening': 'المغرب (6-8 م)',
+                    'night': 'العشاء (8-11 م)'
+                };
+                timeSlots.push(timeNames[checkbox.value] || checkbox.value);
+            });
+            
+            // Collect preferred days
+            const preferredDays = [];
+            document.querySelectorAll('input[name="preferredDays"]:checked').forEach(checkbox => {
+                const dayNames = {
+                    'saturday': 'السبت',
+                    'sunday': 'الأحد',
+                    'monday': 'الاثنين',
+                    'tuesday': 'الثلاثاء',
+                    'wednesday': 'الأربعاء',
+                    'thursday': 'الخميس',
+                    'friday': 'الجمعة'
+                };
+                preferredDays.push(dayNames[checkbox.value] || checkbox.value);
+            });
+            
+            // Create detailed email content
+            const emailContent = `طلب تسجيل جديد - أكاديمية مآب لتحفيظ القرآن الكريم
+
+المعلومات الشخصية:
+==================
+👤 الاسم الكامل: ${data.fullName || 'غير محدد'}
+📧 البريد الإلكتروني: ${data.email || 'غير محدد'}
+📱 رقم الهاتف: ${data.phone || 'غير محدد'}
+🎂 العمر: ${data.age || 'غير محدد'}
+👥 الجنس: ${data.gender === 'male' ? 'ذكر' : data.gender === 'female' ? 'أنثى' : 'غير محدد'}
+🌍 الدولة: ${data.country || 'غير محدد'}
+
+معلومات الباقة والدراسة:
+========================
+🎓 الباقة المختارة: ${data.packageName || 'لم يتم الاختيار'}
+🎯 الفئة العمرية: ${data.ageGroup === 'children' ? 'أطفال (4-12 سنة)' : data.ageGroup === 'youth' ? 'شباب (13-25 سنة)' : data.ageGroup === 'adults' ? 'بالغين (26+ سنة)' : 'غير محدد'}
+📚 المواد المطلوبة: ${data.subjects.length > 0 ? data.subjects.join(' - ') : 'لم يتم الاختيار'}
+📊 مستوى الحفظ الحالي: ${data.currentLevel || 'غير محدد'}
+📅 عدد الحصص أسبوعياً: ${data.sessionsPerWeek || 'غير محدد'}
+
+الأوقات والمواعيد:
+==================
+🕐 الأوقات المناسبة: ${timeSlots.length > 0 ? timeSlots.join(' - ') : 'لم يتم الاختيار'}
+📆 الأيام المفضلة: ${preferredDays.length > 0 ? preferredDays.join(' - ') : 'لم يتم الاختيار'}
+
+ملاحظات إضافية:
+================
+${data.specialNeeds || 'لا توجد ملاحظات إضافية'}
+
+معلومات التسجيل:
+================
+📅 تاريخ التسجيل: ${new Date().toLocaleDateString('ar-EG')}
+🕒 وقت التسجيل: ${new Date().toLocaleTimeString('ar-EG')}
+
+يرجى التواصل مع العميل في أقرب وقت ممكن لتأكيد الحصة التجريبية المجانية.
+
+مع أطيب التحيات،
+نظام التسجيل الآلي - أكاديمية مآب`;
+            
+            // Send email using EmailJS
+            emailjs.send("service_t8kdlb9", "template_sdz8ik8", {
+                to_email: "ah1623801@gmail.com",
+                subject: "🌟 طلب تسجيل جديد - أكاديمية مآب لتحفيظ القرآن",
+                message: emailContent
+            })
+            .then(function(response) {
+                console.log("تم إرسال البريد بنجاح!", response.status, response.text);
+                
+                // Reset button and show success
+                submitBtn.textContent = originalText;
+                submitBtn.disabled = false;
+                
+                // Show success message
+                showSuccessMessage(data);
+            }, function(error) {
+                console.log("فشل في إرسال البريد...", error);
+                
+                // Reset button and show error
+                submitBtn.textContent = originalText;
+                submitBtn.disabled = false;
+                
+                // Show error message
+                showErrorMessage(data);
+            });
+        });
+        
+        function showSuccessMessage(userData) {
+            // Remove any existing success message
+            const existingMessage = document.querySelector('.success-message');
+            if (existingMessage) {
+                existingMessage.remove();
+            }
+            
+            const successDiv = document.createElement('div');
+            successDiv.className = 'success-message';
+            successDiv.innerHTML = `
+                <div class="success-overlay" style="
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background: rgba(0, 0, 0, 0.6);
+                    z-index: 9998;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    backdrop-filter: blur(5px);
+                ">
+                    <div class="success-content" style="
+                        background: linear-gradient(135deg, #4CAF50, #45a049);
+                        color: white;
+                        padding: 40px;
+                        border-radius: 25px;
+                        text-align: center;
+                        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+                        z-index: 9999;
+                        max-width: 500px;
+                        width: 90%;
+                        position: relative;
+                        animation: successSlideIn 0.5s ease-out;
+                        border: 3px solid rgba(255, 255, 255, 0.3);
+                    ">
+                        <div style="font-size: 4rem; margin-bottom: 20px; animation: bounce 1s infinite;">🎉</div>
+                        <h2 style="margin-bottom: 20px; font-size: 2rem; font-family: 'Amiri', serif;">تم إرسال طلبك بنجاح!</h2>
+                        <div style="background: rgba(255, 255, 255, 0.2); padding: 20px; border-radius: 15px; margin-bottom: 25px;">
+                            <p style="margin-bottom: 10px; font-size: 1.1rem;">مرحباً <strong>${userData.fullName || 'عزيزنا الطالب'}</strong></p>
+                            <p style="margin-bottom: 15px;">تم استلام طلب التسجيل الخاص بك للباقة:</p>
+                            <div style="background: rgba(255, 215, 0, 0.3); padding: 10px; border-radius: 10px; margin: 10px 0;">
+                                <strong>${userData.packageName || 'الباقة المختارة'}</strong>
+                            </div>
+                        </div>
+                        <div style="background: rgba(255, 255, 255, 0.15); padding: 15px; border-radius: 12px; margin-bottom: 25px; font-size: 0.95rem;">
+                            <p><strong>📧 تم إرسال تفاصيل طلبك إلى:</strong></p>
+                            <p style="color: #FFD700; font-weight: bold;">althawra1@gmail.com</p>
+                        </div>
+                        <div style="background: rgba(255, 255, 255, 0.15); padding: 15px; border-radius: 12px; margin-bottom: 25px;">
+                            <p style="margin-bottom: 10px;"><strong>⏰ خطوات المتابعة:</strong></p>
+                            <p style="font-size: 0.9rem; margin-bottom: 5px;">• سيتم التواصل معك خلال 24 ساعة</p>
+                            <p style="font-size: 0.9rem; margin-bottom: 5px;">• تحديد موعد الحصة التجريبية المجانية</p>
+                            <p style="font-size: 0.9rem; margin-bottom: 5px;">• إرسال رابط الحصة عبر الواتساب</p>
+                            <p style="font-size: 0.9rem;">• بداية رحلتك القرآنية معنا</p>
+                        </div>
+                        <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
+                            <button onclick="closeSuccessMessage()" style="
+                                background: white;
+                                color: #4CAF50;
+                                border: none;
+                                padding: 12px 25px;
+                                border-radius: 25px;
+                                cursor: pointer;
+                                font-weight: bold;
+                                font-size: 1rem;
+                                transition: all 0.3s ease;
+                                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+                            " onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+                                ✓ حسناً
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <style>
+                    @keyframes successSlideIn {
+                        from {
+                            opacity: 0;
+                            transform: translateY(-50px) scale(0.8);
+                        }
+                        to {
+                            opacity: 1;
+                            transform: translateY(0) scale(1);
+                        }
+                    }
+                    
+                    @keyframes bounce {
+                        0%, 20%, 50%, 80%, 100% {
+                            transform: translateY(0);
+                        }
+                        40% {
+                            transform: translateY(-10px);
+                        }
+                        60% {
+                            transform: translateY(-5px);
+                        }
+                    }
+                </style>
+            `;
+            
+            document.body.appendChild(successDiv);
+            
+            // Auto close after 10 seconds
+            setTimeout(() => {
+                if (document.querySelector('.success-message')) {
+                    closeSuccessMessage();
+                }
+            }, 15000);
+        }
+        
+        function showErrorMessage(userData) {
+            const errorDiv = document.createElement('div');
+            errorDiv.className = 'error-message';
+            errorDiv.innerHTML = `
+                <div class="error-overlay" style="
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background: rgba(0, 0, 0, 0.6);
+                    z-index: 9998;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    backdrop-filter: blur(5px);
+                ">
+                    <div class="error-content" style="
+                        background: linear-gradient(135deg, #ff6b6b, #ee5a52);
+                        color: white;
+                        padding: 40px;
+                        border-radius: 25px;
+                        text-align: center;
+                        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+                        z-index: 9999;
+                        max-width: 500px;
+                        width: 90%;
+                        position: relative;
+                        animation: errorSlideIn 0.5s ease-out;
+                        border: 3px solid rgba(255, 255, 255, 0.3);
+                    ">
+                        <div style="font-size: 4rem; margin-bottom: 20px;">⚠️</div>
+                        <h2 style="margin-bottom: 20px; font-size: 2rem; font-family: 'Amiri', serif;">حدث خطأ في الإرسال</h2>
+                        <div style="background: rgba(255, 255, 255, 0.2); padding: 20px; border-radius: 15px; margin-bottom: 25px;">
+                            <p style="margin-bottom: 15px;">لم يتم إرسال طلبك بسبب مشكلة تقنية.</p>
+                            <p style="margin-bottom: 15px;">يرجى التحقق من اتصال الإنترنت أو تكرار المحاولة لاحقاً.</p>
+                        </div>
+                        <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
+                            <button onclick="closeErrorMessage()" style="
+                                background: white;
+                                color: #ff6b6b;
+                                border: none;
+                                padding: 12px 25px;
+                                border-radius: 25px;
+                                cursor: pointer;
+                                font-weight: bold;
+                                font-size: 1rem;
+                                transition: all 0.3s ease;
+                                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+                            " onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+                                ✓ حسناً
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <style>
+                    @keyframes errorSlideIn {
+                        from {
+                            opacity: 0;
+                            transform: translateY(-50px) scale(0.8);
+                        }
+                        to {
+                            opacity: 1;
+                            transform: translateY(0) scale(1);
+                        }
+                    }
+                </style>
+            `;
+            
+            document.body.appendChild(errorDiv);
+            
+            // Auto close after 10 seconds
+            setTimeout(() => {
+                if (document.querySelector('.error-message')) {
+                    closeErrorMessage();
+                }
+            }, 15000);
+        }
+        
+        function closeSuccessMessage() {
+            const successMessage = document.querySelector('.success-message');
+            if (successMessage) {
+                successMessage.style.opacity = '0';
+                successMessage.style.transform = 'scale(0.8)';
+                setTimeout(() => {
+                    successMessage.remove();
+                }, 300);
+            }
+        }
+        
+        function closeErrorMessage() {
+            const errorMessage = document.querySelector('.error-message');
+            if (errorMessage) {
+                errorMessage.style.opacity = '0';
+                errorMessage.style.transform = 'scale(0.8)';
+                setTimeout(() => {
+                    errorMessage.remove();
+                }, 300);
+            }
+        }
+        
+        // Make functions globally accessible
+        window.closeSuccessMessage = closeSuccessMessage;
+        window.closeErrorMessage = closeErrorMessage;
+        
+        // Add floating animation to elements
+        function createFloatingElements() {
+            const symbols = ['☪', '✦', '❋', '⟡', '✧', '◈'];
+            const container = document.querySelector('.floating-elements');
+            
+            setInterval(() => {
+                if (container.children.length < 8) {
+                    const element = document.createElement('div');
+                    element.className = 'floating-element';
+                    element.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+                    element.style.left = Math.random() * 100 + '%';
+                    element.style.top = Math.random() * 100 + '%';
+                    element.style.animationDelay = Math.random() * 3 + 's';
+                    element.style.fontSize = (Math.random() * 1.5 + 1) + 'rem';
+                    container.appendChild(element);
+                    
+                    setTimeout(() => {
+                        if (element.parentNode) {
+                            element.remove();
+                        }
+                    }, 10000);
+                }
+            }, 3000);
+        }
+        
+        createFloatingElements();
+        
+        // Add form validation feedback
+        document.querySelectorAll('input[required], select[required]').forEach(field => {
+            field.addEventListener('blur', function() {
+                if (!this.value) {
+                    this.style.borderColor = '#ff6b6b';
+                    this.style.boxShadow = '0 0 0 3px rgba(255, 107, 107, 0.1)';
+                } else {
+                    this.style.borderColor = '#4CAF50';
+                    this.style.boxShadow = '0 0 0 3px rgba(76, 175, 80, 0.1)';
+                }
+            });
+        });
+        
+        // Add interactive hover effects
+        document.querySelectorAll('.package-card, .age-group, .subject-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-5px) scale(1.02)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                if (!this.classList.contains('selected')) {
+                    this.style.transform = 'translateY(0) scale(1)';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
